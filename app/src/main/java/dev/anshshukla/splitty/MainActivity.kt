@@ -2,6 +2,7 @@ package dev.anshshukla.splitty
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -11,6 +12,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.color.DynamicColors
 import com.google.firebase.auth.FirebaseAuth
@@ -33,6 +35,27 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.page_groups -> {
+                    Log.println(Log.DEBUG, "main", "groups")
+                    Toast.makeText(this, R.string.label_groups, Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.page_splits -> {
+                    Log.println(Log.DEBUG, "main", "splits")
+                    Toast.makeText(this, R.string.label_splits, Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.page_history -> {
+                    Log.println(Log.DEBUG, "main", "history")
+                    Toast.makeText(this, R.string.label_history, Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
 
         binding.fab.setOnClickListener { view ->
             run {
