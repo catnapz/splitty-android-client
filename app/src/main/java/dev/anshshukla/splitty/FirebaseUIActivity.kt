@@ -8,7 +8,6 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
-
 class FirebaseUIActivity : AppCompatActivity() {
 
     private val signInLauncher = registerForActivityResult(
@@ -51,7 +50,6 @@ class FirebaseUIActivity : AppCompatActivity() {
     }
 
     private fun initSignInFlow() {
-
         AuthUI.getInstance().silentSignIn(this, providers)
             .continueWithTask { task ->
                 if (task.isSuccessful) {
@@ -89,5 +87,4 @@ class FirebaseUIActivity : AppCompatActivity() {
             }
         }
     }
-
 }

@@ -47,4 +47,6 @@
     <string name="label_splits">Splits</string>
     <string name="label_history">History</string>
     <string name="label_fab">Create</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

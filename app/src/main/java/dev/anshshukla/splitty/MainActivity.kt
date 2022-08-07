@@ -6,21 +6,15 @@ import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.color.DynamicColors
 import com.google.firebase.auth.FirebaseAuth
 import dev.anshshukla.splitty.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,25 +26,21 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.page_groups -> {
                     Log.println(Log.DEBUG, "main", "groups")
-                    Toast.makeText(this, R.string.label_groups, Toast.LENGTH_SHORT).show()
+                    replaceFragment(GroupsPageFragment())
                     true
                 }
                 R.id.page_splits -> {
+                    replaceFragment(SplitsPageFragment())
                     Log.println(Log.DEBUG, "main", "splits")
-                    Toast.makeText(this, R.string.label_splits, Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.page_history -> {
+                    replaceFragment(HistoryPageFragment())
                     Log.println(Log.DEBUG, "main", "history")
-                    Toast.makeText(this, R.string.label_history, Toast.LENGTH_SHORT).show()
                     true
                 }
                 else -> false
@@ -94,9 +84,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.page_container, fragment)
+            .commit()
     }
 }
