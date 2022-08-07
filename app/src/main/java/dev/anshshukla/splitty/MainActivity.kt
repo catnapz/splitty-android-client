@@ -11,10 +11,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import androidx.annotation.NonNull
 import com.firebase.ui.auth.AuthUI
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.android.material.color.DynamicColors
 import com.google.firebase.auth.FirebaseAuth
 import dev.anshshukla.splitty.databinding.ActivityMainBinding
@@ -27,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        DynamicColors.applyToActivityIfAvailable(this);
+        DynamicColors.applyToActivityIfAvailable(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -50,10 +47,10 @@ class MainActivity : AppCompatActivity() {
                     .addOnCompleteListener {
                         run {
                             // user is now signed out
-                            startActivity(Intent(this, FirebaseUIActivity::class.java));
-                            finish();
+                            startActivity(Intent(this, FirebaseUIActivity::class.java))
+                            finish()
                         }
-                    };
+                    }
             }
         }
     }
