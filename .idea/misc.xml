@@ -7,7 +7,7 @@
         <entry key="app/src/main/res/drawable/ic_groups.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2495" />
         <entry key="app/src/main/res/drawable/ic_splits.xml" value="0.167" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22544860839843742" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18936157226562492" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1404769897460938" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2640625" />
         <entry key="app/src/main/res/layout/fragment_groups_page.xml" value="0.22911094686739747" />
@@ -16,7 +16,8 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.2640625" />
         <entry key="app/src/main/res/layout/fragment_splits_page.xml" value="0.11584800741427248" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/menu_main.xml" value="0.2661346435546875" />
+        <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.19010416666666666" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
       </map>
     </option>
   </component>

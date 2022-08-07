@@ -29,41 +29,22 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.page_groups -> {
-                    Log.println(Log.DEBUG, "main", "groups")
                     replaceFragment(GroupsPageFragment())
                     true
                 }
                 R.id.page_splits -> {
                     replaceFragment(SplitsPageFragment())
-                    Log.println(Log.DEBUG, "main", "splits")
                     true
                 }
                 R.id.page_history -> {
                     replaceFragment(HistoryPageFragment())
-                    Log.println(Log.DEBUG, "main", "history")
+                    true
+                }
+                R.id.page_settings -> {
+                    replaceFragment(SettingsPageFragment())
                     true
                 }
                 else -> false
-            }
-        }
-
-        binding.fab.setOnClickListener { view ->
-            run {
-                Snackbar.make(
-                    view,
-                    FirebaseAuth.getInstance().currentUser?.displayName ?: "uhm",
-                    Snackbar.LENGTH_LONG
-                )
-                    .setAnchorView(R.id.fab)
-                    .setAction("Action", null).show()
-                AuthUI.getInstance().signOut(this)
-                    .addOnCompleteListener {
-                        run {
-                            // user is now signed out
-                            startActivity(Intent(this, FirebaseUIActivity::class.java))
-                            finish()
-                        }
-                    }
             }
         }
     }

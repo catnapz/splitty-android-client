@@ -15,4 +15,9 @@
         android:enabled="true"
         android:icon="@drawable/ic_timeline"
         android:title="@string/label_history"/>
+    <item
+        android:id="@+id/page_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/label_settings"/>
 </menu>
