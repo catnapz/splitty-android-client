@@ -3,16 +3,16 @@
     <item
         android:id="@+id/page_groups"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_alert"
+        android:icon="@drawable/ic_groups"
         android:title="@string/label_groups"/>
     <item
         android:id="@+id/page_splits"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_info"
+        android:icon="@drawable/ic_splits"
         android:title="@string/label_splits"/>
     <item
         android:id="@+id/page_history"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_dialer"
+        android:icon="@drawable/ic_timeline"
         android:title="@string/label_history"/>
 </menu>

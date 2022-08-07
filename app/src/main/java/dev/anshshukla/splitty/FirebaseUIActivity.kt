@@ -1,5 +1,6 @@
 package dev.anshshukla.splitty
 
+import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
