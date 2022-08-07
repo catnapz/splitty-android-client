@@ -8,6 +8,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
+
 class FirebaseUIActivity : AppCompatActivity() {
 
     private val signInLauncher = registerForActivityResult(
@@ -25,18 +26,49 @@ class FirebaseUIActivity : AppCompatActivity() {
 //        AuthUI.IdpConfig.TwitterBuilder().build()
     )
 
+    private fun handleSignedIn() {
+        // TODO: handle sign in bonuses https://github.com/firebase/FirebaseUI-Android/blob/master/auth/README.md
+//       val user = FirebaseAuth.getInstance().currentUser
+//        val metadata: FirebaseUserMetadata = user.getMetadata()
+//        if (metadata.creationTimestamp == metadata.lastSignInTimestamp) {
+//            // The user is new, show them a fancy intro screen!
+//        } else {
+//            // This is an existing user, show them a welcome back screen.
+//        }
+
+        startActivity(Intent(applicationContext, MainActivity::class.java))
+    }
+
     override fun onStart() {
         super.onStart()
         val auth = FirebaseAuth.getInstance()
         if (auth.currentUser != null) {
             // already signed in
-            startActivity(Intent(applicationContext, MainActivity::class.java))
+            handleSignedIn()
         } else {
             initSignInFlow()
         }
     }
 
     private fun initSignInFlow() {
+
+        AuthUI.getInstance().silentSignIn(this, providers)
+            .continueWithTask { task ->
+                if (task.isSuccessful) {
+                    task
+                } else {
+                    // Ignore any exceptions since we don't care about credential fetch errors.
+                    FirebaseAuth.getInstance().signInAnonymously()
+                }
+            }.addOnCompleteListener(this
+            ) { task ->
+                if (task.isSuccessful) {
+                    handleSignedIn()
+                } else {
+                    // Uh oh, show error message
+                }
+            }
+
         val signInIntent = AuthUI.getInstance(FirebaseApp.getInstance())
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
@@ -47,9 +79,7 @@ class FirebaseUIActivity : AppCompatActivity() {
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
         if (result.resultCode == RESULT_OK) {
             // Successfully signed in
-            val user = FirebaseAuth.getInstance().currentUser
-            // ...
-            startActivity(Intent(this, MainActivity::class.java))
+            handleSignedIn()
         } else {
             // Sign in failed. If response is null the user canceled the
             // sign-in flow using the back button.

@@ -1,5 +1,6 @@
 package dev.anshshukla.splitty
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +11,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.NonNull
+import com.firebase.ui.auth.AuthUI
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.color.DynamicColors
+import com.google.firebase.auth.FirebaseAuth
 import dev.anshshukla.splitty.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -32,9 +38,23 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
+            run {
+                Snackbar.make(
+                    view,
+                    FirebaseAuth.getInstance().currentUser?.displayName ?: "uhm",
+                    Snackbar.LENGTH_LONG
+                )
+                    .setAnchorView(R.id.fab)
+                    .setAction("Action", null).show()
+                AuthUI.getInstance().signOut(this)
+                    .addOnCompleteListener {
+                        run {
+                            // user is now signed out
+                            startActivity(Intent(this, FirebaseUIActivity::class.java));
+                            finish();
+                        }
+                    };
+            }
         }
     }
 
