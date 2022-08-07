@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "754087324450",
+    "project_id": "splitty-89f9d",
+    "storage_bucket": "splitty-89f9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754087324450:android:acef357800e4e32ca2d37b",
+        "android_client_info": {
+          "package_name": "dev.anshshukla.splitty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754087324450-9omqhobjisc7qtjmiog89ag036nersdt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.anshshukla.splitty",
+            "certificate_hash": "9235d65204bdb5ef051d74cd0217d9f52804bcb5"
+          }
+        },
+        {
+          "client_id": "754087324450-tmitm25ii6sv2i1tm8m46amb329mn5nu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtmiS2T4OxpiVtIgSF5bJyXc0Iiv6U3_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754087324450-tmitm25ii6sv2i1tm8m46amb329mn5nu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
