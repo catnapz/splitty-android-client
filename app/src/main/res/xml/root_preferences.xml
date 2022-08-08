@@ -1,35 +1,42 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <Preference
+        android:id="@+id/accountSettings"
+        app:key="accountSettings"
+        app:layout="@layout/user_info" />
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
+    <PreferenceCategory>
+        <SwitchPreferenceCompat
+            android:id="@+id/sync_switch"
+            app:icon="@drawable/ic_logout"
+            app:key="sync"
+            app:title="Sync Periodically"
+            />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory
+        app:allowDividerAbove="false"
+        app:title="@string/feedback_header">
+        <Preference
+            android:id="@+id/rateButton"
+            app:icon="@drawable/ic_star"
+            app:key="rate"
+            app:title="@string/feedback_rate_label"
+            app:layout="@layout/pref"/>
+        <Preference
+            android:id="@+id/contactButton"
+            app:icon="@drawable/ic_contact_support"
+            app:key="contactSupport"
+            app:title="@string/feedback_contact_label" />
+    </PreferenceCategory>
 
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
+    <PreferenceCategory>
+        <Preference
+            android:id="@+id/logoutButton"
+            app:icon="@drawable/ic_logout"
+            app:key="logout"
+            app:title="@string/logout" />
     </PreferenceCategory>
 
 </PreferenceScreen>
