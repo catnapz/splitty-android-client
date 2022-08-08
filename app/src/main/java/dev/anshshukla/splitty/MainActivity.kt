@@ -6,6 +6,8 @@ import androidx.core.view.WindowCompat
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.color.DynamicColors
 import dev.anshshukla.splitty.databinding.ActivityMainBinding
@@ -17,7 +19,17 @@ import dev.anshshukla.splitty.pages.settings.SettingsPageFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var homePageTag: String
+    private lateinit var otherPageTag: String
+
+    private var currBackStackCount = 0
+
+    private var backShouldExit = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        homePageTag = getString(R.string.label_groups)
+        otherPageTag = "OTHER_PAGE"
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         DynamicColors.applyToActivityIfAvailable(this)
@@ -29,19 +41,19 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.page_groups -> {
-                    replaceFragment(GroupsPageFragment(), getString(R.string.label_groups))
+                    setPage(GroupsPageFragment(), homePageTag)
                     true
                 }
                 R.id.page_splits -> {
-                    replaceFragment(SplitsPageFragment(), getString(R.string.label_splits))
+                    setPage(SplitsPageFragment())
                     true
                 }
                 R.id.page_activity -> {
-                    replaceFragment(ActivityPageFragment(), getString(R.string.label_activity))
+                    setPage(ActivityPageFragment())
                     true
                 }
                 R.id.page_settings -> {
-                    replaceFragment(SettingsPageFragment(), getString(R.string.label_settings))
+                    setPage(SettingsPageFragment())
                     true
                 }
                 else -> false
@@ -65,12 +77,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment, tag: String) {
-        supportFragmentManager
+    private fun setPage(page: Fragment, tag: String = otherPageTag) {
+        val transaction = supportFragmentManager
             .beginTransaction()
-            .replace(R.id.page_container, fragment, tag)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .addToBackStack(tag)
-            .commit()
+            .replace(R.id.page_container, page, tag)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .setReorderingAllowed(true)
+        currBackStackCount = supportFragmentManager.backStackEntryCount
+        if(tag !== homePageTag) {
+            transaction.addToBackStack(otherPageTag)
+        }
+
+        if(currBackStackCount == 0) {
+            supportFragmentManager.addOnBackStackChangedListener(object :
+                FragmentManager.OnBackStackChangedListener {
+                override fun onBackStackChanged() {
+                    if(supportFragmentManager.backStackEntryCount <= currBackStackCount) {
+                        // backstack was popped, empty back stack and navigate to home page
+                        supportFragmentManager.popBackStack(otherPageTag, POP_BACK_STACK_INCLUSIVE)
+                        supportFragmentManager.removeOnBackStackChangedListener(this);
+                        binding.bottomNavigation.menu.getItem(0).isChecked = true;
+                    }
+                }
+            })
+        }
+
+        transaction.commit()
     }
+
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        if(supportFragmentManager.backStackEntryCount == 0) {
+//            if(backShouldExit) moveTaskToBack(true)
+//            backShouldExit = true
+//        }
+//    }
+
 }

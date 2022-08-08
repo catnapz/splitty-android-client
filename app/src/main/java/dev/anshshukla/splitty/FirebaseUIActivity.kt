@@ -1,13 +1,14 @@
 package dev.anshshukla.splitty
 
-import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+
 
 class FirebaseUIActivity : AppCompatActivity() {
 
@@ -35,8 +36,10 @@ class FirebaseUIActivity : AppCompatActivity() {
 //        } else {
 //            // This is an existing user, show them a welcome back screen.
 //        }
-
-        startActivity(Intent(applicationContext, MainActivity::class.java))
+        val startMainActivityIntent = Intent(this, MainActivity::class.java)
+        startMainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(startMainActivityIntent)
+        ActivityCompat.finishAffinity(this)
     }
 
     override fun onStart() {
@@ -70,6 +73,8 @@ class FirebaseUIActivity : AppCompatActivity() {
 
         val signInIntent = AuthUI.getInstance(FirebaseApp.getInstance())
             .createSignInIntentBuilder()
+//            .setLogo()
+//            .setTheme()
             .setAvailableProviders(providers)
             .build()
         signInLauncher.launch(signInIntent)
