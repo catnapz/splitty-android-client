@@ -11,10 +11,10 @@
         android:icon="@drawable/ic_splits"
         android:title="@string/label_splits"/>
     <item
-        android:id="@+id/page_history"
+        android:id="@+id/page_activity"
         android:enabled="true"
         android:icon="@drawable/ic_timeline"
-        android:title="@string/label_history"/>
+        android:title="@string/label_activity"/>
     <item
         android:id="@+id/page_settings"
         android:enabled="true"

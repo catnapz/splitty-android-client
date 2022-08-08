@@ -11,12 +11,14 @@
         <entry key="app/src/main/res/drawable/ic_splits.xml" value="0.167" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18936157226562492" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1404769897460938" />
+        <entry key="app/src/main/res/layout/dialog_user_edit.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2640625" />
         <entry key="app/src/main/res/layout/fragment_groups_page.xml" value="0.22911094686739747" />
         <entry key="app/src/main/res/layout/fragment_history_page.xml" value="0.11584800741427248" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.22269592285156253" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.2640625" />
         <entry key="app/src/main/res/layout/fragment_splits_page.xml" value="0.11584800741427248" />
+        <entry key="app/src/main/res/layout/page_settings.xml" value="0.1" />
         <entry key="app/src/main/res/layout/preference.xml" value="0.31650543212890625" />
         <entry key="app/src/main/res/layout/user_info.xml" value="0.48978820800781236" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />

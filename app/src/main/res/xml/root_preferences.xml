@@ -4,7 +4,7 @@
     <Preference
         android:id="@+id/accountSettings"
         app:key="accountSettings"
-        app:layout="@layout/user_info" />
+        app:layout="@layout/page_settings" />
 
     <PreferenceCategory>
         <SwitchPreferenceCompat

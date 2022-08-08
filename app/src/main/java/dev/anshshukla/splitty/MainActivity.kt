@@ -1,18 +1,18 @@
 package dev.anshshukla.splitty
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import com.firebase.ui.auth.AuthUI
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.color.DynamicColors
-import com.google.firebase.auth.FirebaseAuth
 import dev.anshshukla.splitty.databinding.ActivityMainBinding
+import dev.anshshukla.splitty.pages.groups.GroupsPageFragment
+import dev.anshshukla.splitty.pages.splits.SplitsPageFragment
+import dev.anshshukla.splitty.pages.activity.ActivityPageFragment
+import dev.anshshukla.splitty.pages.settings.SettingsPageFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -29,19 +29,19 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.page_groups -> {
-                    replaceFragment(GroupsPageFragment())
+                    replaceFragment(GroupsPageFragment(), getString(R.string.label_groups))
                     true
                 }
                 R.id.page_splits -> {
-                    replaceFragment(SplitsPageFragment())
+                    replaceFragment(SplitsPageFragment(), getString(R.string.label_splits))
                     true
                 }
-                R.id.page_history -> {
-                    replaceFragment(HistoryPageFragment())
+                R.id.page_activity -> {
+                    replaceFragment(ActivityPageFragment(), getString(R.string.label_activity))
                     true
                 }
                 R.id.page_settings -> {
-                    replaceFragment(SettingsPageFragment())
+                    replaceFragment(SettingsPageFragment(), getString(R.string.label_settings))
                     true
                 }
                 else -> false
@@ -65,10 +65,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: Fragment, tag: String) {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.page_container, fragment)
+            .replace(R.id.page_container, fragment, tag)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .addToBackStack(tag)
             .commit()
     }
 }

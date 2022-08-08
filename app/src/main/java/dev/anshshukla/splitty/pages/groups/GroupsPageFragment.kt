@@ -1,4 +1,4 @@
-package dev.anshshukla.splitty
+package dev.anshshukla.splitty.pages.groups
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import dev.anshshukla.splitty.R
 
 /**
  * A simple [Fragment] subclass.
@@ -19,7 +20,7 @@ class GroupsPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_groups_page, container, false)
+        val view = inflater.inflate(R.layout.page_groups, container, false)
         view.findViewById<FloatingActionButton>(R.id.fab_groups).setOnClickListener { fab ->
             run {
                 Snackbar.make(
@@ -30,6 +31,6 @@ class GroupsPageFragment : Fragment() {
                     .setAction("Action", null).show()
             }
         }
-        return view;
+        return view
     }
 }

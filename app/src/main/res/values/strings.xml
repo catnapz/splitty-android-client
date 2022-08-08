@@ -18,7 +18,7 @@
     <!-- Labels -->
     <string name="label_groups">Groups</string>
     <string name="label_splits">Splits</string>
-    <string name="label_history">History</string>
+    <string name="label_activity">Activity</string>
     <string name="label_fab">Create</string>
     <string name="label_settings">Settings</string>
     <string name="label_edit">Edit</string>

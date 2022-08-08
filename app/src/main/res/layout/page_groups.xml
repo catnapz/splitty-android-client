@@ -6,7 +6,7 @@
     android:id="@+id/groupsPageLayour"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GroupsPageFragment">
+    tools:context=".pages.groups.GroupsPageFragment">
 
     <TextView
         android:id="@+id/textView"
