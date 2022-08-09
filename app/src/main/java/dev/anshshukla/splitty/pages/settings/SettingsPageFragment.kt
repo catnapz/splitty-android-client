@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import dev.anshshukla.splitty.FirebaseUIActivity
 import dev.anshshukla.splitty.R
+import dev.anshshukla.splitty.pages.settings.fragments.PreferencesFragment
 import dev.anshshukla.splitty.pages.settings.fragments.UserSettingsDialogFragment
 
 class SettingsPageFragment : Fragment() {
@@ -41,6 +42,11 @@ class SettingsPageFragment : Fragment() {
                     }
             }
         }
+
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.preferencesFragmentContainer, PreferencesFragment())
+            .commit()
 
         return view;
     }

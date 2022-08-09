@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         if(tag !== homePageTag) {
             transaction.addToBackStack(otherPageTag)
         }
-
+        transaction.commit()
         if(currBackStackCount == 0) {
             supportFragmentManager.addOnBackStackChangedListener(object :
                 FragmentManager.OnBackStackChangedListener {
@@ -101,16 +101,6 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }
-
-        transaction.commit()
     }
-
-//    override fun onBackPressed() {
-//        super.onBackPressed()
-//        if(supportFragmentManager.backStackEntryCount == 0) {
-//            if(backShouldExit) moveTaskToBack(true)
-//            backShouldExit = true
-//        }
-//    }
 
 }

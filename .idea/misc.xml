@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ansh/WSource/splitty-android-client/app/src/main/res/layout/page_settings.xml" value="0.4322916666666667" />
+        <entry key="..\:/Users/Ansh/WSource/splitty-android-client/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3905" />
+        <entry key="..\:/Users/Ansh/WSource/splitty-android-client/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3905" />
+        <entry key="..\:/Users/Ansh/WSource/splitty-android-client/app/src/main/res/xml/root_preferences.xml" value="0.4322916666666667" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2495" />
         <entry key="app/src/main/res/drawable/ic_groups.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2495" />

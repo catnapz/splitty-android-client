@@ -1,132 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/settingsPageContainer"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/userSettings"
-        style="@style/Widget.Material3.CardView.Elevated"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/profile_pic_margin">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/userDisplayPicture"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="@dimen/profile_pic_margin"
-                android:contentDescription="@string/description_profile_picture"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-                app:srcCompat="@mipmap/ic_launcher" />
-
-            <TextView
-                android:id="@+id/username"
-                style="@style/Widget.MaterialComponents.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/profile_pic_margin"
-                android:text="@string/placeholder_username"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/userDisplayPicture"
-                app:layout_constraintTop_toTopOf="@+id/userDisplayPicture" />
-
-            <TextView
-                android:id="@+id/email"
-                style="@style/Widget.MaterialComponents.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/placeholder_email"
-                app:layout_constraintStart_toStartOf="@+id/username"
-                app:layout_constraintTop_toBottomOf="@+id/username" />
-
-            <Button
-                android:id="@+id/profileEditButton"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/profile_pic_margin"
-                android:text="@string/label_edit"
-                app:icon="@drawable/ic_edit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/logoutButton"
+        android:id="@+id/settingsPageContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:paddingStart="?android:attr/scrollbarSize"
-        android:paddingEnd="?android:attr/scrollbarSize">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/logoutIcon"
-            style="@style/Widget.Material3.Button.TextButton.Icon"
-            android:layout_width="wrap_content"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/userSettings"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_logout"
-            app:tint="@color/material_on_background_emphasis_high_type"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_margin="@dimen/profile_pic_margin">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dip"
-            android:layout_marginEnd="6dip"
-            android:layout_marginTop="6dip"
-            android:layout_marginBottom="6dip"
-            android:layout_weight="1">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:fadingEdge="horizontal"
-                android:singleLine="true"
-                android:text="@string/logout"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/userDisplayPicture"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="@dimen/profile_pic_margin"
+                    android:contentDescription="@string/description_profile_picture"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:srcCompat="@mipmap/ic_launcher" />
 
-            <TextView
-                android:id="@+id/summary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:layout_alignStart="@id/title"
-                android:maxLines="4"
-                android:text="@string/logout"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="?android:attr/textColorSecondary" />
-        </RelativeLayout>
-        <LinearLayout android:id="@+id/widget_frame"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical" />
+                <TextView
+                    android:id="@+id/username"
+                    style="@style/Widget.MaterialComponents.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/profile_pic_margin"
+                    android:text="@string/placeholder_username"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/userDisplayPicture"
+                    app:layout_constraintTop_toTopOf="@+id/userDisplayPicture" />
+
+                <TextView
+                    android:id="@+id/email"
+                    style="@style/Widget.MaterialComponents.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_email"
+                    app:layout_constraintStart_toStartOf="@+id/username"
+                    app:layout_constraintTop_toBottomOf="@+id/username" />
+
+                <Button
+                    android:id="@+id/profileEditButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/profile_pic_margin"
+                    android:layout_marginEnd="@dimen/profile_pic_margin"
+                    android:layout_marginBottom="@dimen/profile_pic_margin"
+                    android:text="@string/label_edit"
+                    app:icon="@drawable/ic_edit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/preferencesFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
-
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
