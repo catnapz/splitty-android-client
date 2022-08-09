@@ -24,8 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     private var currBackStackCount = 0
 
-    private var backShouldExit = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         homePageTag = getString(R.string.label_groups)
         otherPageTag = "OTHER_PAGE"

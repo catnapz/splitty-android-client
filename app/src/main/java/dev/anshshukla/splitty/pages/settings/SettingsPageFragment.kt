@@ -33,16 +33,6 @@ class SettingsPageFragment : Fragment() {
         val view = inflater.inflate(R.layout.page_settings, container, false)
         setupUserSettingsCard(view)
 
-        view.findViewById<LinearLayout>(R.id.logoutButton).setOnClickListener {
-            context?.let { context ->
-                AuthUI.getInstance().signOut(context)
-                    .addOnCompleteListener {
-                        // user is now signed out
-                        startActivity(Intent(context, FirebaseUIActivity::class.java))
-                    }
-            }
-        }
-
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.preferencesFragmentContainer, PreferencesFragment())

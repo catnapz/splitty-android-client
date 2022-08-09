@@ -2,22 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <PreferenceCategory>
-        <SwitchPreferenceCompat
-            android:id="@+id/sync_switch"
-            app:icon="@drawable/ic_logout"
-            app:key="sync"
-            app:title="Sync Periodically" />
-    </PreferenceCategory>
-
     <PreferenceCategory
-        app:allowDividerAbove="false"
         app:title="@string/feedback_header">
         <Preference
             android:id="@+id/rateButton"
             app:icon="@drawable/ic_star"
             app:key="rate"
-            app:layout="@layout/pref"
             app:title="@string/feedback_rate_label" />
         <Preference
             android:id="@+id/contactButton"
@@ -28,40 +18,12 @@
 
     <PreferenceCategory>
         <Preference
+            app:allowDividerAbove="true"
             android:id="@+id/logoutButton"
             app:icon="@drawable/ic_logout"
             app:key="logout"
             app:title="@string/logout" />
     </PreferenceCategory>
-    <PreferenceCategory app:title="@string/messages_header">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
-    </PreferenceCategory>
 
 </PreferenceScreen>
