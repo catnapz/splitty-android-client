@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setPage(page: Fragment, pageId: Int) {
+        if(currPageId == pageId) return
         currPageId = pageId
         if(pageId == R.id.page_settings) {
             binding.fabAddExpense.hide()

@@ -59,7 +59,7 @@ class SettingsPageFragment : Fragment() {
                 .with(this)
                 .load(user.photoUrl)
                 .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher_foreground)
                 .into(userSettingsView.findViewById<ShapeableImageView>(R.id.userDisplayPicture))
         }
     }
