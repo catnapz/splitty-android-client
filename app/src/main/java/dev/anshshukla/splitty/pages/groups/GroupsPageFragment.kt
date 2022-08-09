@@ -21,16 +21,6 @@ class GroupsPageFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.page_groups, container, false)
-        view.findViewById<FloatingActionButton>(R.id.fab_groups).setOnClickListener { fab ->
-            run {
-                Snackbar.make(
-                    fab, R.string.label_groups,
-                    Snackbar.LENGTH_LONG
-                )
-                    .setAnchorView(R.id.fab_groups)
-                    .setAction("Action", null).show()
-            }
-        }
         return view
     }
 }

@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import dev.anshshukla.splitty.databinding.ActivityMainBinding
 import dev.anshshukla.splitty.pages.groups.GroupsPageFragment
 import dev.anshshukla.splitty.pages.splits.SplitsPageFragment
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var homePageTag: String
     private lateinit var otherPageTag: String
 
+    private var currPageId = R.id.page_groups
     private var currBackStackCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,22 +39,33 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        binding.fabAddExpense.setOnClickListener { fab ->
+            run {
+                Snackbar.make(
+                    fab, currPageId.toString(),
+                    Snackbar.LENGTH_LONG
+                )
+                    .setAnchorView(R.id.fab_add_expense)
+                    .setAction("Action", null).show()
+            }
+        }
+
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.page_groups -> {
-                    setPage(GroupsPageFragment(), homePageTag)
+                    setPage(GroupsPageFragment(), item.itemId)
                     true
                 }
                 R.id.page_splits -> {
-                    setPage(SplitsPageFragment())
+                    setPage(SplitsPageFragment(), item.itemId)
                     true
                 }
                 R.id.page_activity -> {
-                    setPage(ActivityPageFragment())
+                    setPage(ActivityPageFragment(), item.itemId)
                     true
                 }
                 R.id.page_settings -> {
-                    setPage(SettingsPageFragment())
+                    setPage(SettingsPageFragment(), item.itemId)
                     true
                 }
                 else -> false
@@ -75,16 +89,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setPage(page: Fragment, tag: String = otherPageTag) {
+    private fun setPage(page: Fragment, pageId: Int) {
+        currPageId = pageId
+        if(pageId == R.id.page_settings) {
+            binding.fabAddExpense.hide()
+        } else {
+            binding.fabAddExpense.show()
+        }
+
         val transaction = supportFragmentManager
             .beginTransaction()
-            .replace(R.id.page_container, page, tag)
+            .replace(R.id.page_container, page, pageId.toString())
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .setReorderingAllowed(true)
         currBackStackCount = supportFragmentManager.backStackEntryCount
-        if(tag !== homePageTag) {
+        if(pageId != R.id.page_groups) {
             transaction.addToBackStack(otherPageTag)
         }
+
         transaction.commit()
         if(currBackStackCount == 0) {
             supportFragmentManager.addOnBackStackChangedListener(object :
@@ -93,8 +115,10 @@ class MainActivity : AppCompatActivity() {
                     if(supportFragmentManager.backStackEntryCount <= currBackStackCount) {
                         // backstack was popped, empty back stack and navigate to home page
                         supportFragmentManager.popBackStack(otherPageTag, POP_BACK_STACK_INCLUSIVE)
-                        supportFragmentManager.removeOnBackStackChangedListener(this);
-                        binding.bottomNavigation.menu.getItem(0).isChecked = true;
+                        supportFragmentManager.removeOnBackStackChangedListener(this)
+                        binding.bottomNavigation.menu.getItem(0).isChecked = true
+                        currPageId = R.id.page_groups
+                        binding.fabAddExpense.show()
                     }
                 }
             })

@@ -8,6 +8,7 @@
 
     <!-- Descriptions -->
     <string name="description_profile_picture">Profile Picture</string>
+    <string name="description_add_expense_fab">Button to add expenses</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -19,7 +20,7 @@
     <string name="label_groups">Groups</string>
     <string name="label_splits">Splits</string>
     <string name="label_activity">Activity</string>
-    <string name="label_fab">Create</string>
+    <string name="label_add_expense_fab">Add Expense</string>
     <string name="label_settings">Settings</string>
     <string name="label_edit">Edit</string>
 

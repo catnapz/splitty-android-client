@@ -22,16 +22,6 @@ class SplitsPageFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.page_splits, container, false)
-        view.findViewById<FloatingActionButton>(R.id.fab_splits).setOnClickListener { fab ->
-            run {
-                Snackbar.make(
-                    fab, R.string.label_groups,
-                    Snackbar.LENGTH_LONG
-                )
-                    .setAnchorView(R.id.fab_splits)
-                    .setAction("Action", null).show()
-            }
-        }
         return view
     }
 }
