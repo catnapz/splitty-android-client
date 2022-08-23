@@ -12,4 +12,8 @@
     <style name="Theme.Splitty.Preference" parent="@style/PreferenceThemeOverlay.v14.Material">
         <item name="android:tint">@color/material_on_background_emphasis_high_type</item>
     </style>
+
+    <style name="Theme.Splitty.FirebaseAuth" parent="Base.Theme.Splitty">
+        <item name="android:statusBarColor">@color/fui_transparent</item>
+    </style>
 </resources>

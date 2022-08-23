@@ -1,22 +1,23 @@
 package dev.anshshukla.splitty
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dev.anshshukla.splitty.databinding.ActivityMainBinding
-import dev.anshshukla.splitty.pages.groups.GroupsPageFragment
-import dev.anshshukla.splitty.pages.splits.SplitsPageFragment
 import dev.anshshukla.splitty.pages.activity.ActivityPageFragment
+import dev.anshshukla.splitty.pages.groups.GroupsPageFragment
 import dev.anshshukla.splitty.pages.settings.SettingsPageFragment
+import dev.anshshukla.splitty.pages.splits.SplitsPageFragment
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
