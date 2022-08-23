@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -17,6 +18,7 @@ import dev.anshshukla.splitty.pages.activity.ActivityPageFragment
 import dev.anshshukla.splitty.pages.groups.GroupsPageFragment
 import dev.anshshukla.splitty.pages.settings.SettingsPageFragment
 import dev.anshshukla.splitty.pages.splits.SplitsPageFragment
+import dev.anshshukla.splitty.viewmodel.PageViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -24,10 +26,11 @@ import dev.anshshukla.splitty.pages.splits.SplitsPageFragment
  * create an instance of this fragment.
  */
 class PageHolderFragment : Fragment() {
+    private val pageViewModel: PageViewModel by activityViewModels()
+
     private lateinit var homePageTag: String
     private lateinit var otherPageTag: String
 
-    private var currPageId = 0
     private var currBackStackCount = 0
 
     private lateinit var expenseFab: ExtendedFloatingActionButton
@@ -53,7 +56,7 @@ class PageHolderFragment : Fragment() {
         expenseFab.setOnClickListener { fab ->
                 run {
                     Snackbar.make(
-                        fab, currPageId.toString(),
+                        fab, pageViewModel.selectedPageId.value.toString(),
                         Snackbar.LENGTH_LONG
                     )
                         .setAnchorView(R.id.fab_add_expense)
@@ -65,19 +68,19 @@ class PageHolderFragment : Fragment() {
         bottomNavBar.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.page_groups -> {
-                        setPage(GroupsPageFragment(), item.itemId)
+                        setPage(GroupsPageFragment(), R.id.page_groups)
                         true
                     }
                     R.id.page_splits -> {
-                        setPage(SplitsPageFragment(), item.itemId)
+                        setPage(SplitsPageFragment(), R.id.page_splits)
                         true
                     }
                     R.id.page_activity -> {
-                        setPage(ActivityPageFragment(), item.itemId)
+                        setPage(ActivityPageFragment(), R.id.page_activity)
                         true
                     }
                     R.id.page_settings -> {
-                        setPage(SettingsPageFragment(), item.itemId)
+                        setPage(SettingsPageFragment(), R.id.page_settings)
                         true
                     }
                     else -> false
@@ -87,8 +90,8 @@ class PageHolderFragment : Fragment() {
     }
 
     private fun setPage(page: Fragment, pageId: Int) {
-        if (currPageId == pageId) return
-        currPageId = pageId
+        if (pageViewModel.selectedPageId.value == pageId) return
+        pageViewModel.setPageId(pageId)
         if (pageId == R.id.page_settings) {
             expenseFab.hide()
         } else {
@@ -118,31 +121,11 @@ class PageHolderFragment : Fragment() {
                         )
                         parentFragmentManager.removeOnBackStackChangedListener(this)
                         bottomNavBar.menu.getItem(0).isChecked = true
-                        currPageId = R.id.page_groups
+                        pageViewModel.setPageId(R.id.page_groups)
                         expenseFab.show()
                     }
                 }
             })
         }
     }
-
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment PageHolderFragment.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            PageHolderFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
 }

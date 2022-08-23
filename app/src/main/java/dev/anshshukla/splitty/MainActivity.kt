@@ -3,23 +3,17 @@ package dev.anshshukla.splitty
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.snackbar.Snackbar
 import dev.anshshukla.splitty.databinding.ActivityMainBinding
 import dev.anshshukla.splitty.pages.PageHolderFragment
-import dev.anshshukla.splitty.pages.activity.ActivityPageFragment
-import dev.anshshukla.splitty.pages.groups.GroupsPageFragment
-import dev.anshshukla.splitty.pages.settings.SettingsPageFragment
-import dev.anshshukla.splitty.pages.splits.SplitsPageFragment
+import dev.anshshukla.splitty.viewmodel.PageViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val pageViewModel: PageViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -34,11 +28,40 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        pageViewModel.selectedPageId.observe(this) {
+            when(it){
+                R.id.page_groups -> binding.toolbar.title = getString(R.string.label_groups)
+                R.id.page_splits -> binding.toolbar.title = getString(R.string.label_splits)
+                R.id.page_activity -> binding.toolbar.title = getString(R.string.label_activity)
+                R.id.page_settings -> binding.toolbar.title = getString(R.string.label_settings)
+                else -> binding.toolbar.title = getString(R.string.app_name)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
+        when(pageViewModel.selectedPageId.value){
+            R.id.page_groups -> binding.toolbar.title = getString(R.string.label_groups)
+            R.id.page_splits -> binding.toolbar.title = getString(R.string.label_splits)
+            R.id.page_activity -> binding.toolbar.title = getString(R.string.label_activity)
+            R.id.page_settings -> binding.toolbar.title = getString(R.string.label_settings)
+            else -> binding.toolbar.title = getString(R.string.app_name)
+        }
+        if (pageViewModel.selectedPageId.value == R.id.page_settings) {
+            menu.findItem(R.id.action_settings).isVisible = false
+            invalidateOptionsMenu()
+        } else {
+            menu.getItem(0).title = pageViewModel.selectedPageId.value.toString()
+        }
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        // testing
+        invalidateOptionsMenu()
         return true
     }
 
