@@ -3,14 +3,6 @@
     <style name="Base.Theme.Splitty" parent="Theme.Material3.DynamicColors.Dark">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="preferenceTheme">@style/Theme.Splitty.Preference</item>
-    </style>
-
-    <!-- Preference Theme -->
-    <style name="Theme.Splitty.Preference" parent="@style/PreferenceThemeOverlay.v14.Material">
-        <item name="android:tint">@color/material_on_background_emphasis_high_type</item>
     </style>
 
     <style name="Theme.Splitty.FirebaseAuth" parent="Base.Theme.Splitty">

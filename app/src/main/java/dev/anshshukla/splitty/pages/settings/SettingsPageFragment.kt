@@ -26,16 +26,15 @@ class SettingsPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.page_settings, container, false)
+        return inflater.inflate(R.layout.page_settings, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.preferencesFragmentContainer, PreferencesFragment())
             .commit()
-
         setupUserSettingsCard(view)
-
-        return view
     }
 
     private fun setupUserSettingsCard(view: View) {
