@@ -3,12 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../Splitty/splitty-android-client/app/src/main/res/layout/activity_main.xml" value="0.175" />
+        <entry key="../../Splitty/splitty-android-client/app/src/main/res/layout/activity_main.xml" value="0.3001129150390625" />
         <entry key="../../Splitty/splitty-android-client/app/src/main/res/layout/dialog_user_edit.xml" value="0.175" />
+        <entry key="../../Splitty/splitty-android-client/app/src/main/res/layout/fragment_page_holder.xml" value="0.3182291666666667" />
         <entry key="../../Splitty/splitty-android-client/app/src/main/res/layout/page_activity.xml" value="0.175" />
         <entry key="../../Splitty/splitty-android-client/app/src/main/res/layout/page_groups.xml" value="0.175" />
         <entry key="../../Splitty/splitty-android-client/app/src/main/res/layout/page_settings.xml" value="0.25" />
         <entry key="../../Splitty/splitty-android-client/app/src/main/res/layout/pref.xml" value="0.175" />
+        <entry key="../../Splitty/splitty-android-client/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.175" />
+        <entry key="../../Splitty/splitty-android-client/app/src/main/res/menu/menu_main.xml" value="0.175" />
         <entry key="../../Splitty/splitty-android-client/app/src/main/res/xml/root_preferences.xml" value="0.175" />
         <entry key="..\:/Users/Ansh/WSource/splitty-android-client/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4305" />
         <entry key="..\:/Users/Ansh/WSource/splitty-android-client/app/src/main/res/drawable/ic_groups.xml" value="0.4305" />

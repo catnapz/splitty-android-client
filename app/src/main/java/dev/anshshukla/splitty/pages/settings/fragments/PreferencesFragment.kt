@@ -12,7 +12,6 @@ import com.firebase.ui.auth.AuthUI
 import dev.anshshukla.splitty.FirebaseUIActivity
 import dev.anshshukla.splitty.R
 
-
 class PreferencesFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
