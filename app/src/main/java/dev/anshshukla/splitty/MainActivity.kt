@@ -6,38 +6,34 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.navigation.NavController
 import com.google.android.material.color.DynamicColors
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import dev.anshshukla.splitty.databinding.ActivityMainBinding
-import dev.anshshukla.splitty.pages.PageHolderFragment
 import dev.anshshukla.splitty.viewmodel.PageViewModel
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private val pageViewModel: PageViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         DynamicColors.applyToActivityIfAvailable(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_content_container, PageHolderFragment(), "main_content")
-            .commit()
-
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        pageViewModel.selectedPageId.observe(this) {
-            when(it){
-                R.id.page_groups -> binding.toolbar.title = getString(R.string.label_groups)
-                R.id.page_splits -> binding.toolbar.title = getString(R.string.label_splits)
-                R.id.page_activity -> binding.toolbar.title = getString(R.string.label_activity)
-                R.id.page_settings -> binding.toolbar.title = getString(R.string.label_settings)
-                else -> binding.toolbar.title = getString(R.string.app_name)
-            }
-        }
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        navController = navHostFragment.navController
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -52,15 +48,14 @@ class MainActivity : AppCompatActivity() {
         }
         if (pageViewModel.selectedPageId.value == R.id.page_settings) {
             menu.findItem(R.id.action_settings).isVisible = false
-            invalidateOptionsMenu()
         } else {
+            // testing
             menu.getItem(0).title = pageViewModel.selectedPageId.value.toString()
         }
         return true
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        // testing
         invalidateOptionsMenu()
         return true
     }
@@ -73,5 +68,10 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
     }
 }
