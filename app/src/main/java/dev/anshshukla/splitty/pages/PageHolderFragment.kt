@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import dev.anshshukla.splitty.R
-import dev.anshshukla.splitty.databinding.FragmentPageHolderBinding
 import dev.anshshukla.splitty.pages.activity.ActivityPageFragment
 import dev.anshshukla.splitty.pages.groups.GroupsPageFragment
 import dev.anshshukla.splitty.pages.settings.SettingsPageFragment
@@ -52,17 +50,15 @@ class PageHolderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //val navHostFragment =
+          //  parentFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+
+        //val navController = navHostFragment.navController
+
         expenseFab = view.findViewById(R.id.fab_add_expense)
-        expenseFab.setOnClickListener { fab ->
-                run {
-                    Snackbar.make(
-                        fab, pageViewModel.selectedPageId.value.toString(),
-                        Snackbar.LENGTH_LONG
-                    )
-                        .setAnchorView(R.id.fab_add_expense)
-                        .setAction("Action", null).show()
-                }
-            }
+        expenseFab.setOnClickListener {
+            findNavController().navigate(R.id.action_add_expense)
+        }
 
         bottomNavBar = view.findViewById(R.id.bottom_navigation)
         bottomNavBar.setOnItemSelectedListener { item ->
@@ -86,7 +82,7 @@ class PageHolderFragment : Fragment() {
                     else -> false
                 }
             }
-        setPage(GroupsPageFragment(), R.id.page_groups)
+        setPage(GroupsPageFragment(), pageViewModel.selectedPageId.value ?: R.id.page_groups)
     }
 
     private fun setPage(page: Fragment, pageId: Int) {

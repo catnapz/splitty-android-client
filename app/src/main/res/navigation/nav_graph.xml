@@ -12,17 +12,26 @@
         tools:layout="@layout/fragment_page_holder">
 
         <action
-            android:id="@+id/action_add_expense" />
-<!--            app:destination="@id/ExpensePageFragment" />-->
+            android:id="@+id/action_add_expense"
+            app:destination="@id/ExpenseFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/SecondFragment"-->
-<!--        android:name="dev.anshshukla.splitty.SecondFragment"-->
-<!--        android:label="@string/second_fragment_label"-->
-<!--        tools:layout="@layout/fragment_second">-->
 
-<!--        <action-->
-<!--            android:id="@+id/action_SecondFragment_to_FirstFragment"-->
-<!--            app:destination="@id/FirstFragment" />-->
-<!--    </fragment>-->
+    <fragment
+        android:id="@+id/ExpenseFragment"
+        android:name="dev.anshshukla.splitty.pages.expense.ExpenseFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_expense">
+
+        <action
+            android:id="@+id/action_return_from_add_expense"
+            app:destination="@id/PageHolderFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 </navigation>
