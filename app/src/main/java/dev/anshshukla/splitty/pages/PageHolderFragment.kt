@@ -9,9 +9,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import dev.anshshukla.splitty.R
+import dev.anshshukla.splitty.databinding.FragmentPageHolderBinding
 import dev.anshshukla.splitty.pages.activity.ActivityPageFragment
 import dev.anshshukla.splitty.pages.groups.GroupsPageFragment
 import dev.anshshukla.splitty.pages.settings.SettingsPageFragment
@@ -19,11 +18,10 @@ import dev.anshshukla.splitty.pages.splits.SplitsPageFragment
 import dev.anshshukla.splitty.viewmodel.PageViewModel
 
 /**
- * A simple [Fragment] subclass.
- * Use the [PageHolderFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Page holder contains the views below the action bar
  */
 class PageHolderFragment : Fragment() {
+    private var _binding: FragmentPageHolderBinding? = null
     private val pageViewModel: PageViewModel by activityViewModels()
 
     private lateinit var homePageTag: String
@@ -31,8 +29,9 @@ class PageHolderFragment : Fragment() {
 
     private var currBackStackCount = 0
 
-    private lateinit var expenseFab: ExtendedFloatingActionButton
-    private lateinit var bottomNavBar: BottomNavigationView
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,24 +43,18 @@ class PageHolderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page_holder, container, false)
+        _binding = FragmentPageHolderBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //val navHostFragment =
-          //  parentFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
 
-        //val navController = navHostFragment.navController
-
-        expenseFab = view.findViewById(R.id.fab_add_expense)
-        expenseFab.setOnClickListener {
+        binding.fabAddExpense.setOnClickListener {
             findNavController().navigate(R.id.action_add_expense)
         }
 
-        bottomNavBar = view.findViewById(R.id.bottom_navigation)
-        bottomNavBar.setOnItemSelectedListener { item ->
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.page_groups -> {
                         setPage(GroupsPageFragment(), R.id.page_groups)
@@ -89,9 +82,9 @@ class PageHolderFragment : Fragment() {
         if (pageViewModel.selectedPageId.value == pageId) return
         pageViewModel.setPageId(pageId)
         if (pageId == R.id.page_settings) {
-            expenseFab.hide()
+            binding.fabAddExpense.hide()
         } else {
-            expenseFab.show()
+            binding.fabAddExpense.show()
         }
 
         val transaction = parentFragmentManager
@@ -116,9 +109,9 @@ class PageHolderFragment : Fragment() {
                             FragmentManager.POP_BACK_STACK_INCLUSIVE
                         )
                         parentFragmentManager.removeOnBackStackChangedListener(this)
-                        bottomNavBar.menu.getItem(0).isChecked = true
+                        binding.bottomNavigation.menu.getItem(0).isChecked = true
                         pageViewModel.setPageId(R.id.page_groups)
-                        expenseFab.show()
+                        binding.fabAddExpense.show()
                     }
                 }
             })

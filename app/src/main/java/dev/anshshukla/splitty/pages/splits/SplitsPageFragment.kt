@@ -21,7 +21,6 @@ class SplitsPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.page_splits, container, false)
-        return view
+        return inflater.inflate(R.layout.page_splits, container, false)
     }
 }

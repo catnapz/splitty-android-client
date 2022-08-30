@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.anshshukla.splitty.R
+import dev.anshshukla.splitty.databinding.FragmentExpenseBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,6 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ExpenseFragment : Fragment() {
+    private var _binding: FragmentExpenseBinding? = null
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -29,13 +31,23 @@ class ExpenseFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_expense, container, false)
+    ): View {
+        _binding = FragmentExpenseBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        binding.expenseValueField.addOnEditTextAttachedListener {
+//            it.editText.text
+//        }
     }
 
     companion object {

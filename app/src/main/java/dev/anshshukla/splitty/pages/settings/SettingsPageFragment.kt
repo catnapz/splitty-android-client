@@ -4,14 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.imageview.ShapeableImageView
+import dev.anshshukla.splitty.databinding.PageSettingsBinding
 import com.google.firebase.auth.FirebaseAuth
 import dev.anshshukla.splitty.GlideApp
 import dev.anshshukla.splitty.R
@@ -20,13 +15,18 @@ import dev.anshshukla.splitty.pages.settings.fragments.UserSettingsDialogFragmen
 
 
 class SettingsPageFragment : Fragment() {
+    private var _binding: PageSettingsBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.page_settings, container, false)
+    ): View {
+        _binding = PageSettingsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,29 +34,29 @@ class SettingsPageFragment : Fragment() {
             .beginTransaction()
             .replace(R.id.preferencesFragmentContainer, PreferencesFragment())
             .commit()
-        setupUserSettingsCard(view)
+        setupUserSettingsCard()
     }
 
-    private fun setupUserSettingsCard(view: View) {
+    private fun setupUserSettingsCard() {
         val user = FirebaseAuth.getInstance().currentUser!!
-        val userSettingsView = view.findViewById<MaterialCardView>(R.id.userSettings)
-        userSettingsView.findViewById<TextView>(R.id.username).text =
+
+        binding.username.text =
             user.displayName ?: user.email ?: user.phoneNumber ?: ""
 
-        userSettingsView.findViewById<TextView>(R.id.email).text =
+        binding.email.text =
             user.email ?: user.phoneNumber ?: ""
 
-        userSettingsView.findViewById<Button>(R.id.profileEditButton).setOnClickListener {
+        binding.profileEditButton.setOnClickListener {
             showEditUserSettingsDialog()
         }
 
         if (user.photoUrl !== null) {
             GlideApp
-                .with(view.context)
+                .with(this)
                 .load(user.photoUrl)
                 .override(100, 100)
                 .centerCrop()
-                .into(userSettingsView.findViewById<ShapeableImageView>(R.id.userDisplayPicture))
+                .into(binding.userDisplayPicture)
         }
     }
 
