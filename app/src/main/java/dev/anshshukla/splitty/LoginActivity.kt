@@ -3,7 +3,6 @@ package dev.anshshukla.splitty
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
@@ -12,9 +11,11 @@ import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.app
 import dev.anshshukla.splitty.databinding.ActivityLoginBinding
@@ -26,6 +27,8 @@ class LoginActivity : AppCompatActivity() {
     private val tag = "LoginActivity"
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var analytics: FirebaseAnalytics
+    private lateinit var crashlytics: FirebaseCrashlytics
     private var signInButtonColorInt by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +39,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance(Firebase.app)
+        analytics = FirebaseAnalytics.getInstance(applicationContext)
+        crashlytics = FirebaseCrashlytics.getInstance()
 
         signInButtonColorInt = MaterialColors.harmonizeWithPrimary(
             this,
@@ -48,7 +53,15 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (auth.currentUser != null) {
+        val user = auth.currentUser
+        if (user != null) {
+
+            val bundle = Bundle()
+            with(bundle) {
+                putString(FirebaseAnalytics.Param.ITEM_ID, user.uid)
+            }
+            analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
+
             handleSignedIn()
         }
     }
@@ -167,6 +180,7 @@ class LoginActivity : AppCompatActivity() {
                                         showSnackBar(R.string.too_many_login_requests)
                                     }
                                 }
+                                crashlytics.recordException(exception)
                                 Log.e(tag, "Login failure: ${exception.message}")
                             }
                         }
