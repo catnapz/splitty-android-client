@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/loginOptions"
         style="@style/Widget.Splitty.LoginCard"
@@ -107,4 +108,22 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/loginProgressIndicator"
+        style="@style/Widget.Material3.CircularProgressIndicator"
+        android:elevation="1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:contentDescription="Login Loading"
+        android:indeterminate="true"
+        app:hideAnimationBehavior="outward"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showAnimationBehavior="inward"
+        app:trackCornerRadius="4dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

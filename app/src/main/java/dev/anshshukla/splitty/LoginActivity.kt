@@ -2,12 +2,12 @@ package dev.anshshukla.splitty
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
+import androidx.core.widget.doOnTextChanged
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.MaterialColors
 import com.google.firebase.auth.FirebaseAuth
@@ -16,13 +16,11 @@ import com.google.firebase.ktx.app
 import dev.anshshukla.splitty.databinding.ActivityLoginBinding
 import dev.anshshukla.splitty.utils.FormUtils
 import dev.anshshukla.splitty.utils.FormValidationErrorCode
-import org.w3c.dom.Text
 
 
 class LoginActivity : AppCompatActivity() {
-    val TAG = "LoginActivity"
+    private val tag = "LoginActivity"
     private lateinit var binding: ActivityLoginBinding
-
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,27 +90,41 @@ class LoginActivity : AppCompatActivity() {
         return valid
     }
 
-    private fun initEmailLoginForm() {
-        binding.loginPasswordInputLayout.addOnEditTextAttachedListener {
-            it.error = null
+    private fun setLoading(isLoading: Boolean = true) {
+        if (isLoading) {
+            binding.loginProgressIndicator.show()
+            binding.loginButton.isEnabled = false
+            binding.signInWithGoogleButton.isEnabled = false
+        } else {
+            binding.loginProgressIndicator.hide()
+            binding.loginButton.isEnabled = true
+            binding.signInWithGoogleButton.isEnabled = true
         }
-        binding.loginEmailInputLayout.addOnEditTextAttachedListener {
-            it.error = null
+    }
+
+    private fun initEmailLoginForm() {
+        binding.loginPasswordField.doOnTextChanged { _, _, _, _ ->
+            binding.loginPasswordInputLayout.error = null
+        }
+        binding.loginEmailField.doOnTextChanged { _, _, _, _ ->
+            binding.loginEmailInputLayout.error = null
         }
         binding.loginButton.setOnClickListener {
             if (validateForm()) {
+                setLoading()
                 auth.signInWithEmailAndPassword(
                     binding.loginEmailField.text.toString(),
                     binding.loginPasswordField.text.toString()
                 )
                     .addOnCompleteListener {
+                        setLoading(false)
                         if (it.isSuccessful) {
                             val user = auth.currentUser!!
-                            Log.d(TAG, "Logged in user: ${user.uid}")
+                            Log.d(tag, "Logged in user: ${user.uid}")
                             handleSignedIn()
                         } else {
                             it.exception?.message?.let { errorMessage ->
-                                Log.e(TAG, "Login failure: $errorMessage")
+                                Log.e(tag, "Login failure: $errorMessage")
                             }
                             Toast.makeText(
                                 baseContext, R.string.sign_in_failed,
