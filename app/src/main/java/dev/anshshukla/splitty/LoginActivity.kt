@@ -16,12 +16,13 @@ import com.google.firebase.ktx.app
 import dev.anshshukla.splitty.databinding.ActivityLoginBinding
 import dev.anshshukla.splitty.utils.FormUtils
 import dev.anshshukla.splitty.utils.FormValidationErrorCode
-
+import kotlin.properties.Delegates
 
 class LoginActivity : AppCompatActivity() {
     private val tag = "LoginActivity"
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+    private var signInButtonColorInt by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +33,11 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance(Firebase.app)
 
-        val harmonizedColor = MaterialColors.harmonizeWithPrimary(
+        signInButtonColorInt = MaterialColors.harmonizeWithPrimary(
             this,
-            resources.getColor(R.color.brand_primary, theme)
+            getColorInt(R.color.brand_primary)
         )
-        binding.loginButton.setBackgroundColor(harmonizedColor)
+        binding.loginButton.setBackgroundColor(signInButtonColorInt)
 
         initEmailLoginForm()
     }
@@ -90,15 +91,31 @@ class LoginActivity : AppCompatActivity() {
         return valid
     }
 
+    private fun getColorInt(colorId: Int): Int {
+        return resources.getColor(colorId, theme)
+    }
+
     private fun setLoading(isLoading: Boolean = true) {
         if (isLoading) {
             binding.loginProgressIndicator.show()
             binding.loginButton.isEnabled = false
             binding.signInWithGoogleButton.isEnabled = false
+
+            binding.loginButton.setBackgroundColor(
+                getColorInt(androidx.appcompat.R.color.dim_foreground_disabled_material_dark)
+            )
+            binding.signInWithGoogleButton.setBackgroundColor(
+                getColorInt(androidx.appcompat.R.color.dim_foreground_disabled_material_dark)
+            )
         } else {
             binding.loginProgressIndicator.hide()
             binding.loginButton.isEnabled = true
             binding.signInWithGoogleButton.isEnabled = true
+
+            binding.loginButton.setBackgroundColor(signInButtonColorInt)
+            binding.signInWithGoogleButton.setBackgroundColor(
+                getColorInt(R.color.white)
+            )
         }
     }
 
