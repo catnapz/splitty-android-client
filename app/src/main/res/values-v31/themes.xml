@@ -1,0 +1,16 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Splitty" parent="Theme.Material3.DynamicColors.DayNight">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Widget.Splitty.LoginCard" parent="Widget.Material3.CardView.Elevated"/>
+
+    <style name="Theme.Splitty.LoginButton" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:backgroundTint">@color/brand_primary</item>
+        <item name="android:textColor">@color/brand_secondary</item>
+        <item name="android:drawableTint">@color/brand_secondary</item>
+    </style>
+
+</resources>

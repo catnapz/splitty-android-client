@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import coil.load
+import coil.transform.CircleCropTransformation
 import dev.anshshukla.splitty.databinding.PageSettingsBinding
 import com.google.firebase.auth.FirebaseAuth
-import dev.anshshukla.splitty.GlideApp
 import dev.anshshukla.splitty.R
 import dev.anshshukla.splitty.pages.settings.fragments.PreferencesFragment
 import dev.anshshukla.splitty.pages.settings.fragments.UserSettingsDialogFragment
@@ -51,12 +52,10 @@ class SettingsPageFragment : Fragment() {
         }
 
         if (user.photoUrl !== null) {
-            GlideApp
-                .with(this)
-                .load(user.photoUrl)
-                .override(100, 100)
-                .centerCrop()
-                .into(binding.userDisplayPicture)
+            binding.userDisplayPicture.load(user.photoUrl) {
+                placeholder(R.mipmap.ic_launcher_round)
+                transformations(CircleCropTransformation())
+            }
         }
     }
 

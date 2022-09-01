@@ -8,8 +8,11 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceGroup
-import com.firebase.ui.auth.AuthUI
-import dev.anshshukla.splitty.FirebaseUIActivity
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
+import dev.anshshukla.splitty.LoginActivity
 import dev.anshshukla.splitty.R
 
 class PreferencesFragment : PreferenceFragmentCompat() {
@@ -30,13 +33,10 @@ class PreferencesFragment : PreferenceFragmentCompat() {
         tintIcons(preferenceScreen, isDark)
         (findPreference("logout") as Preference?)?.setOnPreferenceClickListener {
             context?.let { context ->
-                AuthUI.getInstance()
-                    .signOut(context)
-                    .addOnCompleteListener {
-                        // user is now signed out
-                        startActivity(Intent(context, FirebaseUIActivity::class.java))
-                    }
-                true
+
+                FirebaseAuth.getInstance(Firebase.app)
+                    .signOut()
+                startActivity(Intent(context, LoginActivity::class.java))
             }
             false
         }

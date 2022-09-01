@@ -5,7 +5,23 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Splitty.FirebaseAuth" parent="Base.Theme.Splitty">
-        <item name="android:statusBarColor">@color/fui_transparent</item>
+    <style name="Theme.Splitty" parent="Base.Theme.Splitty">
+        <!-- Transparent system bars for edge-to-edge. -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>
+
+    <style name="Widget.Splitty.LoginCard" parent="Widget.Material3.CardView.Elevated">
+        <item name="android:backgroundTint">@color/surface_variant</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:drawableTint">@color/on_surface_variant</item>
+    </style>
+
+    <style name="Theme.Splitty.LoginButton" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:backgroundTint">@color/brand_primary</item>
+        <item name="android:textColor">@color/brand_secondary</item>
+        <item name="android:drawableTint">@color/brand_secondary</item>
+    </style>
+
 </resources>
