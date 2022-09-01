@@ -1,8 +1,11 @@
 package dev.anshshukla.splitty
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
@@ -21,7 +24,6 @@ import com.google.firebase.ktx.app
 import dev.anshshukla.splitty.databinding.ActivityLoginBinding
 import dev.anshshukla.splitty.utils.FormUtils
 import dev.anshshukla.splitty.utils.FormValidationErrorCode
-import kotlin.properties.Delegates
 
 class LoginActivity : AppCompatActivity() {
     private val tag = "LoginActivity"
@@ -29,7 +31,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var analytics: FirebaseAnalytics
     private lateinit var crashlytics: FirebaseCrashlytics
-    private var signInButtonColorInt by Delegates.notNull<Int>()
+    private var signInButtonColorInt: Int = -1
+    private var modeIsLogin: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,9 @@ class LoginActivity : AppCompatActivity() {
             getColorInt(R.color.brand_primary)
         )
         binding.loginButton.setBackgroundColor(signInButtonColorInt)
+        binding.loginModeToggleButton.setOnClickListener {
+            toggleLoginMode()
+        }
 
         initEmailLoginForm()
     }
@@ -55,7 +61,6 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user = auth.currentUser
         if (user != null) {
-
             val bundle = Bundle()
             with(bundle) {
                 putString(FirebaseAnalytics.Param.ITEM_ID, user.uid)
@@ -186,6 +191,39 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
             }
+        }
+    }
+
+    private fun toggleLoginMode () {
+        modeIsLogin = !modeIsLogin
+        if(modeIsLogin) {
+            with(binding){
+                animateViewVisibility(loginNameInputLayout, View.GONE)
+                animateViewVisibility(loginConfirmPasswordInputLayout, View.GONE)
+                loginButton.text = getString(R.string.sign_in)
+                loginModeToggleButton.text = getString(R.string.sign_up)
+                signInWithGoogleButton.text = getString(R.string.sign_up_with_google)
+            }
+        } else {
+            with(binding){
+                animateViewVisibility(loginNameInputLayout, View.VISIBLE)
+                animateViewVisibility(loginConfirmPasswordInputLayout, View.VISIBLE)
+                loginButton.text = getString(R.string.sign_up)
+                loginModeToggleButton.text = getString(R.string.sign_in)
+                signInWithGoogleButton.text = getString(R.string.sign_in_with_google)
+            }
+        }
+    }
+
+    private fun animateViewVisibility(view: View, visibility: Int) {
+        if(visibility == View.GONE) {
+            view.animate().alpha(0f).setDuration(200).withEndAction {
+                view.visibility = View.GONE
+            }.start()
+        } else {
+            view.animate().alpha(1f).setDuration(300).withStartAction {
+                view.visibility = View.VISIBLE
+            }.start()
         }
     }
 }

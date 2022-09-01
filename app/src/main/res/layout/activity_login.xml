@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -30,9 +31,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/fab_margin"
             android:orientation="vertical">
@@ -57,6 +61,26 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginNameInputLayout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/profile_pic_margin"
+                android:layout_marginEnd="@dimen/profile_pic_margin"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:hint="@string/name_hint"
+                app:placeholderText="@string/name_placeholder">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/loginNameField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    tools:ignore="TextContrastCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/loginPasswordInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,6 +91,26 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/loginPasswordField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    tools:ignore="TextContrastCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:visibility="gone"
+                android:id="@+id/loginConfirmPasswordInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/profile_pic_margin"
+                android:layout_marginEnd="@dimen/profile_pic_margin"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:hint="@string/confirm_password_hint"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/loginConfirmPasswordField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
@@ -106,8 +150,22 @@
                 tools:ignore="RtlHardcoded" />
 
         </LinearLayout>
+        </ScrollView>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/loginModeToggleButton"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginOptions"
+        tools:ignore="RtlHardcoded" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/loginProgressIndicator"
@@ -116,7 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:contentDescription="Login Loading"
+        android:contentDescription="@string/login_loading_description"
         android:indeterminate="true"
         app:hideAnimationBehavior="outward"
         app:layout_constraintBottom_toBottomOf="parent"

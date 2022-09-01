@@ -58,5 +58,10 @@
     <string name="feedback_header">Feedback</string>
     <string name="feedback_rate_label">Rate Splitty</string>
     <string name="feedback_contact_label">Contact Splitty Team</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="name_placeholder">Firstname Lastname</string>
+    <string name="name_hint">Name</string>
+    <string name="login_loading_description">Login Loading</string>
 
 </resources>
