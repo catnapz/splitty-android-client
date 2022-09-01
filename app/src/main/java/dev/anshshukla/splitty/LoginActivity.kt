@@ -10,7 +10,11 @@ import androidx.core.view.WindowCompat
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.app
 import dev.anshshukla.splitty.databinding.ActivityLoginBinding
@@ -66,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
     private fun validateForm(): Boolean {
         var valid = true
 
-        when(FormUtils.validateEmail(binding.loginEmailField.text.toString())) {
+        when (FormUtils.validateEmail(binding.loginEmailField.text.toString())) {
             FormValidationErrorCode.BLANK -> {
                 binding.loginEmailInputLayout.error = getString(R.string.required)
                 valid = false
@@ -79,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.loginEmailInputLayout.error = null
         }
 
-        when(FormUtils.validatePassword(binding.loginPasswordField.text.toString())) {
+        when (FormUtils.validatePassword(binding.loginPasswordField.text.toString())) {
             FormValidationErrorCode.BLANK -> {
                 binding.loginPasswordInputLayout.error = getString(R.string.required)
                 valid = false
@@ -119,6 +123,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun showSnackBar(stringId: Int) {
+        Snackbar.make(binding.root, getString(stringId), Snackbar.LENGTH_LONG).show()
+    }
+
     private fun initEmailLoginForm() {
         binding.loginPasswordField.doOnTextChanged { _, _, _, _ ->
             binding.loginPasswordInputLayout.error = null
@@ -140,13 +148,27 @@ class LoginActivity : AppCompatActivity() {
                             Log.d(tag, "Logged in user: ${user.uid}")
                             handleSignedIn()
                         } else {
-                            it.exception?.message?.let { errorMessage ->
-                                Log.e(tag, "Login failure: $errorMessage")
+                            it.exception?.let { exception ->
+                                when (exception) {
+                                    is FirebaseAuthException -> {
+                                        val errorCode =
+                                            (it.exception as FirebaseAuthException).errorCode
+                                        when (exception) {
+                                            is FirebaseAuthInvalidCredentialsException -> {
+                                                showSnackBar(R.string.login_invalid_credentials)
+                                            }
+                                            else -> {
+                                                showSnackBar(R.string.sign_in_failed)
+                                            }
+                                        }
+                                        Log.e(tag, "Login failure: $errorCode ${exception.message}")
+                                    }
+                                    is FirebaseTooManyRequestsException -> {
+                                        showSnackBar(R.string.too_many_login_requests)
+                                    }
+                                }
+                                Log.e(tag, "Login failure: ${exception.message}")
                             }
-                            Toast.makeText(
-                                baseContext, R.string.sign_in_failed,
-                                Toast.LENGTH_SHORT
-                            ).show()
                         }
                     }
             }
